@@ -14,6 +14,12 @@ interface Template {
     public function getResource();
 
     /**
+     * Gets the template engine
+     * @return string Machine name of the template engine
+     */
+    public function getEngine();
+
+    /**
      * Gets the variables of the template
      * @return array
      */

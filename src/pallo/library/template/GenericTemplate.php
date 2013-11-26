@@ -14,6 +14,12 @@ class GenericTemplate implements Template {
     protected $resource;
 
     /**
+     * Machine name of the template engine
+     * @var string
+     */
+    protected $engine;
+
+    /**
      * Variables for the template
      * @var array
      */
@@ -34,6 +40,23 @@ class GenericTemplate implements Template {
      */
     public function getResource() {
         return $this->resource;
+    }
+
+    /**
+     * Sets the template engine
+     * @param string $engine Machine name of the template engine
+     * @return null
+     */
+    public function setEngine($engine) {
+        $this->engine = $engine;
+    }
+
+    /**
+     * Gets the template engine
+     * @return string Machine name of the template engine
+     */
+    public function getEngine() {
+        return $this->engine;
     }
 
     /**
