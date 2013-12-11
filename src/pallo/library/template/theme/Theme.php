@@ -20,7 +20,7 @@ interface Theme {
     public function getParent();
 
     /**
-     * Gets the machine name of the available template engines
+     * Gets the machine name(s) of the available template engines
      * @return string|array
      */
     public function getEngines();
