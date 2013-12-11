@@ -28,6 +28,14 @@ abstract class AbstractEngine implements Engine {
     }
 
     /**
+     * Gets the extension for the template resources
+     * @return string
+     */
+    public function getExtension() {
+        return static::EXTENSION;
+    }
+
+    /**
      * Sets the model of themes
      * @param pallo\library\template\theme\ThemeModel $themeModel
      * @return null

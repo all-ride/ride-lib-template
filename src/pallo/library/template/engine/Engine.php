@@ -16,6 +16,12 @@ interface Engine {
     public function getName();
 
     /**
+     * Gets the extension for the template resources
+     * @return string
+     */
+    public function getExtension();
+
+    /**
      * Gets the themes which support this engine
      * @return array Array with the name of the theme as key and the true as
      * value
@@ -40,5 +46,17 @@ interface Engine {
      * the template could not be found by the engine
      */
     public function render(Template $template);
+
+    /**
+     * Gets the template resource
+     * @param pallo\library\template\Template $template Template to get the
+     * resource of
+     * @return string Absolute path of the template resource
+     * @throws pallo\library\template\exception\ResourceNotSetException when
+     * no template was set to the template
+     * @throws pallo\library\template\exception\ResourceNotFoundException when
+     * the template could not be found by the engine
+     */
+    public function getFile(Template $template);
 
 }

@@ -114,6 +114,27 @@ class TemplateFacade {
      * the template could not be found by the engine
      */
     public function render(Template $template) {
+        return $this->getTemplateEngine($template)->render($template);
+    }
+
+    /**
+     * Gets the resource for the provided template instance
+     * @param pallo\library\template\Template $template Template to get the
+     * resource of
+     * @return string Absolute path of the template file
+     * @throws pallo\library\template\exception\ResourceNotFoundException
+     */
+    public function getFile(Template $template) {
+        return $this->getTemplateEngine($template)->getFile($template);
+    }
+
+    /**
+     * Gets the engine for the provided template
+     * @param pallo\library\template\Template $template
+     * @throws ResourceNotSetException
+     * @return pallo\library\template\engine\Engine
+     */
+    protected function getTemplateEngine(Template $template) {
         $resource = $template->getResource();
         if (!$resource) {
             throw new ResourceNotSetException();
@@ -125,7 +146,7 @@ class TemplateFacade {
             $theme = null;
         }
 
-        return $this->getEngine($template->getEngine(), $theme)->render($template);
+        return $this->getEngine($template->getEngine(), $theme);
     }
 
     /**
