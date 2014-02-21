@@ -1,12 +1,12 @@
 <?php
 
-namespace pallo\library\template\engine;
+namespace ride\library\template\engine;
 
-use pallo\library\template\theme\Theme;
-use pallo\library\template\theme\ThemeModel;
-use pallo\library\template\GenericThemedTemplate;
-use pallo\library\template\Template;
-use pallo\library\template\ThemedTemplate;
+use ride\library\template\theme\Theme;
+use ride\library\template\theme\ThemeModel;
+use ride\library\template\GenericThemedTemplate;
+use ride\library\template\Template;
+use ride\library\template\ThemedTemplate;
 
 /**
  * Abstract implementation for a template engine
@@ -15,7 +15,7 @@ abstract class AbstractEngine implements Engine {
 
     /**
      * Instance of the theme model
-     * @var pallo\library\templat\theme\ThemeModel
+     * @var ride\library\templat\theme\ThemeModel
      */
     protected $themeModel;
 
@@ -37,7 +37,7 @@ abstract class AbstractEngine implements Engine {
 
     /**
      * Sets the model of themes
-     * @param pallo\library\template\theme\ThemeModel $themeModel
+     * @param ride\library\template\theme\ThemeModel $themeModel
      * @return null
      */
     public function setThemeModel(ThemeModel $themeModel) {
@@ -64,7 +64,7 @@ abstract class AbstractEngine implements Engine {
 
     /**
      * Gets the theme hierarchy from a template
-     * @param pallo\library\template\Template $template
+     * @param ride\library\template\Template $template
      * @return array Array with the theme name as key and in order of hierarchy
      */
     protected function getTheme(Template $template) {
@@ -84,7 +84,7 @@ abstract class AbstractEngine implements Engine {
 
     /**
      * Gets the theme hierarchy from a theme
-     * @param pallo\library\template\theme\Theme $theme
+     * @param ride\library\template\theme\Theme $theme
      * @return array Array with the theme name as key and in order of hierarchy
      */
     protected function getThemeHierarchy(Theme $theme = null) {
@@ -122,7 +122,7 @@ abstract class AbstractEngine implements Engine {
 
     /**
      * Creates a new instance of a template
-     * @return pallo\library\template\Template
+     * @return ride\library\template\Template
      */
     protected function createTemplateInstance() {
         $template = new GenericThemedTemplate();

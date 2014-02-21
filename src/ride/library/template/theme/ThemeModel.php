@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\template\theme;
+namespace ride\library\template\theme;
 
 /**
  * Model of the available themes
@@ -11,7 +11,7 @@ interface ThemeModel {
      * Gets a theme
      * @param string $name Machine name of the theme
      * @return Theme
-     * @throws pallo\library\template\exception\ThemeNotFoundException
+     * @throws ride\library\template\exception\ThemeNotFoundException
      */
     public function getTheme($name);
 
