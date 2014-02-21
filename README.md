@@ -1,6 +1,6 @@
-# Pallo: Template Library
+# Ride: Template Library
 
-Template abstraction library of the PHP Pallo framework.
+Template abstraction library of the PHP Ride framework.
 
 ## Template
 
