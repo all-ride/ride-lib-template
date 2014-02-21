@@ -1,12 +1,12 @@
 <?php
 
-namespace pallo\library\template;
+namespace ride\library\template;
 
-use pallo\library\template\engine\EngineModel;
-use pallo\library\template\exception\ResourceNotSetException;
-use pallo\library\template\exception\TemplateException;
-use pallo\library\template\theme\Theme;
-use pallo\library\template\theme\ThemeModel;
+use ride\library\template\engine\EngineModel;
+use ride\library\template\exception\ResourceNotSetException;
+use ride\library\template\exception\TemplateException;
+use ride\library\template\theme\Theme;
+use ride\library\template\theme\ThemeModel;
 
 /**
  * Generic template renderer
@@ -15,13 +15,13 @@ class TemplateFacade {
 
     /**
      * Instance of the template engine model
-     * @var pallo\library\template\engine\EngineModel
+     * @var ride\library\template\engine\EngineModel
      */
     protected $engineModel;
 
     /**
      * Instance of the theme model
-     * @var pallo\library\template\theme\ThemeModel
+     * @var ride\library\template\theme\ThemeModel
      */
     protected $themeModel;
 
@@ -39,8 +39,8 @@ class TemplateFacade {
 
     /**
      * Constructs a new template facade
-     * @param pallo\library\template\engine\EngineModel $engineModel
-     * @param pallo\library\template\theme\ThemeModel $themeModel
+     * @param ride\library\template\engine\EngineModel $engineModel
+     * @param ride\library\template\theme\ThemeModel $themeModel
      * @return null
      */
     public function __construct(EngineModel $engineModel, ThemeModel $themeModel) {
@@ -50,7 +50,7 @@ class TemplateFacade {
 
     /**
      * Gets the template engine model
-     * @return pallo\library\template\engine\EngineModel
+     * @return ride\library\template\engine\EngineModel
      */
     public function getEngineModel() {
         return $this->engineModel;
@@ -58,7 +58,7 @@ class TemplateFacade {
 
     /**
      * Gets the theme model
-     * @return pallo\library\template\theme\ThemeModel
+     * @return ride\library\template\theme\ThemeModel
      */
     public function getThemeModel() {
         return $this->themeModel;
@@ -88,7 +88,7 @@ class TemplateFacade {
      * @param array $variables Variables for the template
      * @param string $theme Machine name of the template theme
      * @param string $engine Machine name of the template engine
-     * @return pallo\library\template\Template
+     * @return ride\library\template\Template
      */
     public function createTemplate($resource, array $variables = null, $theme = null, $engine = null) {
         $theme = $this->getTheme($theme);
@@ -105,12 +105,12 @@ class TemplateFacade {
 
     /**
      * Renders a template
-     * @param pallo\library\template\Template $template Template to
+     * @param ride\library\template\Template $template Template to
      * render
      * @return string Rendered template
-     * @throws pallo\library\template\exception\ResourceNotSetException when
+     * @throws ride\library\template\exception\ResourceNotSetException when
      * no resource was set to the template
-     * @throws pallo\library\template\exception\ResourceNotFoundException when
+     * @throws ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function render(Template $template) {
@@ -119,10 +119,10 @@ class TemplateFacade {
 
     /**
      * Gets the resource for the provided template instance
-     * @param pallo\library\template\Template $template Template to get the
+     * @param ride\library\template\Template $template Template to get the
      * resource of
      * @return string Absolute path of the template file
-     * @throws pallo\library\template\exception\ResourceNotFoundException
+     * @throws ride\library\template\exception\ResourceNotFoundException
      */
     public function getFile(Template $template) {
         return $this->getTemplateEngine($template)->getFile($template);
@@ -130,9 +130,9 @@ class TemplateFacade {
 
     /**
      * Gets the engine for the provided template
-     * @param pallo\library\template\Template $template
+     * @param ride\library\template\Template $template
      * @throws ResourceNotSetException
-     * @return pallo\library\template\engine\Engine
+     * @return ride\library\template\engine\Engine
      */
     protected function getTemplateEngine(Template $template) {
         $resource = $template->getResource();
@@ -152,7 +152,7 @@ class TemplateFacade {
     /**
      * Gets the template theme
      * @param string $theme Machine name of theme theme
-     * @return pallo\library\template\theme\Theme|null
+     * @return ride\library\template\theme\Theme|null
      */
     protected function getTheme($theme) {
         if ($theme) {
@@ -167,8 +167,8 @@ class TemplateFacade {
     /**
      * Gets the template engine
      * @param string $engine Machine name of the template engine
-     * @param pallo\library\template\theme\Theme $theme
-     * @return pallo\library\template\engine\Engine
+     * @param ride\library\template\theme\Theme $theme
+     * @return ride\library\template\engine\Engine
      */
     protected function getEngine($engine, Theme $theme = null) {
         if ($engine && $theme) {

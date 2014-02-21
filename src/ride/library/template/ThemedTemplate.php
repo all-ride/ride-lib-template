@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\template;
+namespace ride\library\template;
 
 /**
  * Interface for a themed template

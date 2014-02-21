@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\template\engine;
+namespace ride\library\template\engine;
 
 /**
  * Model of the available template engines
@@ -11,7 +11,7 @@ interface EngineModel {
      * Gets a template engine
      * @param string $name Machine name of the template engine
      * @return Engine
-     * @throws pallo\library\template\exception\TemplateEngineNotFoundException
+     * @throws ride\library\template\exception\TemplateEngineNotFoundException
      */
     public function getEngine($name);
 

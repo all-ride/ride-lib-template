@@ -1,8 +1,8 @@
 <?php
 
-namespace pallo\library\template\engine;
+namespace ride\library\template\engine;
 
-use pallo\library\template\Template;
+use ride\library\template\Template;
 
 /**
  * Interface for a template engine
@@ -38,23 +38,23 @@ interface Engine {
 
     /**
      * Renders a template
-     * @param pallo\library\template\Template $template Template to render
+     * @param ride\library\template\Template $template Template to render
      * @return string Rendered template
-     * @throws pallo\library\template\exception\ResourceNotSetException when
+     * @throws ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws pallo\library\template\exception\ResourceNotFoundException when
+     * @throws ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function render(Template $template);
 
     /**
      * Gets the template resource
-     * @param pallo\library\template\Template $template Template to get the
+     * @param ride\library\template\Template $template Template to get the
      * resource of
      * @return string Absolute path of the template resource
-     * @throws pallo\library\template\exception\ResourceNotSetException when
+     * @throws ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws pallo\library\template\exception\ResourceNotFoundException when
+     * @throws ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function getFile(Template $template);

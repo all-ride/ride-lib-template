@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\template\exception;
+namespace ride\library\template\exception;
 
 use \Exception;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace pallo\library\template\exception;
+namespace ride\library\template\exception;
 
 /**
  * Exception when a the template resource is not set to the template
