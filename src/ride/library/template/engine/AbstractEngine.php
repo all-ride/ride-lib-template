@@ -2,6 +2,7 @@
 
 namespace ride\library\template\engine;
 
+use ride\library\template\exception\TemplateException;
 use ride\library\template\theme\Theme;
 use ride\library\template\theme\ThemeModel;
 use ride\library\template\GenericThemedTemplate;
@@ -50,6 +51,10 @@ abstract class AbstractEngine implements Engine {
      * value
      */
     public function getThemes() {
+        if (!$this->themeModel) {
+            throw new TemplateException('Could not get the engine themes: no theme model set');
+        }
+
         $themes = $this->themeModel->getThemes();
         foreach ($themes as $index => $theme) {
             $engines = $theme->getEngines();
@@ -77,6 +82,9 @@ abstract class AbstractEngine implements Engine {
             return null;
         }
 
+        if (!$this->themeModel) {
+            throw new TemplateException('Could not get the theme hierarchy: no theme model set');
+        }
         $theme = $this->themeModel->getTheme($theme);
 
         return $this->getThemeHierarchy($theme);

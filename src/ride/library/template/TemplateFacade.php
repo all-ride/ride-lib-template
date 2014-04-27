@@ -44,8 +44,17 @@ class TemplateFacade {
      * @return null
      */
     public function __construct(EngineModel $engineModel, ThemeModel $themeModel) {
+        $this->setEngineModel($engineModel);
+        $this->setThemeModel($themeModel);
+    }
+
+    /**
+     * Sets the engine model
+     * @param \ride\library\template\engine\EngineModel $engineModel
+     * @return null
+     */
+    public function setEngineModel($engineModel) {
         $this->engineModel = $engineModel;
-        $this->themeModel = $themeModel;
     }
 
     /**
@@ -54,6 +63,20 @@ class TemplateFacade {
      */
     public function getEngineModel() {
         return $this->engineModel;
+    }
+
+    /**
+     * Sets the theme model
+     * @param \ride\library\template\theme\ThemeModel $themeModel
+     * @return null
+     */
+    public function setThemeModel(ThemeModel $themeModel) {
+        $this->themeModel = $themeModel;
+
+        $engines = $this->engineModel->getEngines();
+        foreach ($engines as $engine) {
+            $engine->setThemeModel($themeModel);
+        }
     }
 
     /**

@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "ride\\library\\template\\": ["src/", "test/src/"]
+            "ride\\library\\template\\": ["src/"]
         }
     }    
 }

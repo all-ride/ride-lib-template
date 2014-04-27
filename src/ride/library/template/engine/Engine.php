@@ -2,6 +2,7 @@
 
 namespace ride\library\template\engine;
 
+use ride\library\template\theme\ThemeModel;
 use ride\library\template\Template;
 
 /**
@@ -20,6 +21,13 @@ interface Engine {
      * @return string
      */
     public function getExtension();
+
+    /**
+     * Sets the theme model to this template engine
+     * @param \ride\library\template\theme\ThemeModel
+     * @return null
+     */
+    public function setThemeModel(ThemeModel $themeModel);
 
     /**
      * Gets the themes which support this engine
