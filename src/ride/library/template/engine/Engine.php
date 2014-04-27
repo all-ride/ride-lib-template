@@ -46,23 +46,23 @@ interface Engine {
 
     /**
      * Renders a template
-     * @param ride\library\template\Template $template Template to render
+     * @param \ride\library\template\Template $template Template to render
      * @return string Rendered template
-     * @throws ride\library\template\exception\ResourceNotSetException when
+     * @throws \ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws ride\library\template\exception\ResourceNotFoundException when
+     * @throws \ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function render(Template $template);
 
     /**
      * Gets the template resource
-     * @param ride\library\template\Template $template Template to get the
+     * @param \ride\library\template\Template $template Template to get the
      * resource of
      * @return string Absolute path of the template resource
-     * @throws ride\library\template\exception\ResourceNotSetException when
+     * @throws \ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws ride\library\template\exception\ResourceNotFoundException when
+     * @throws \ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function getFile(Template $template);
