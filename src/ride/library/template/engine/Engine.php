@@ -2,6 +2,7 @@
 
 namespace ride\library\template\engine;
 
+use ride\library\template\theme\ThemeModel;
 use ride\library\template\Template;
 
 /**
@@ -22,6 +23,13 @@ interface Engine {
     public function getExtension();
 
     /**
+     * Sets the theme model to this template engine
+     * @param \ride\library\template\theme\ThemeModel
+     * @return null
+     */
+    public function setThemeModel(ThemeModel $themeModel);
+
+    /**
      * Gets the themes which support this engine
      * @return array Array with the name of the theme as key and the true as
      * value
@@ -38,23 +46,23 @@ interface Engine {
 
     /**
      * Renders a template
-     * @param ride\library\template\Template $template Template to render
+     * @param \ride\library\template\Template $template Template to render
      * @return string Rendered template
-     * @throws ride\library\template\exception\ResourceNotSetException when
+     * @throws \ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws ride\library\template\exception\ResourceNotFoundException when
+     * @throws \ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function render(Template $template);
 
     /**
      * Gets the template resource
-     * @param ride\library\template\Template $template Template to get the
+     * @param \ride\library\template\Template $template Template to get the
      * resource of
      * @return string Absolute path of the template resource
-     * @throws ride\library\template\exception\ResourceNotSetException when
+     * @throws \ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
-     * @throws ride\library\template\exception\ResourceNotFoundException when
+     * @throws \ride\library\template\exception\ResourceNotFoundException when
      * the template could not be found by the engine
      */
     public function getFile(Template $template);

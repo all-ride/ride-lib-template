@@ -11,7 +11,7 @@ interface ThemeModel {
      * Gets a theme
      * @param string $name Machine name of the theme
      * @return Theme
-     * @throws ride\library\template\exception\ThemeNotFoundException
+     * @throws \ride\library\template\exception\ThemeNotFoundException
      */
     public function getTheme($name);
 

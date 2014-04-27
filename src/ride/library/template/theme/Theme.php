@@ -14,6 +14,12 @@ interface Theme {
     public function getName();
 
     /**
+     * Gets the display name of this theme
+     * @return string
+     */
+    public function getDisplayName();
+
+    /**
      * Gets the parent theme
      * @return string Machine name of the parent theme
      */

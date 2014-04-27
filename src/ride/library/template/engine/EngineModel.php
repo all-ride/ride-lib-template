@@ -11,7 +11,7 @@ interface EngineModel {
      * Gets a template engine
      * @param string $name Machine name of the template engine
      * @return Engine
-     * @throws ride\library\template\exception\TemplateEngineNotFoundException
+     * @throws \ride\library\template\exception\TemplateEngineNotFoundException
      */
     public function getEngine($name);
 
