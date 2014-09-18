@@ -152,6 +152,27 @@ class TemplateFacade {
     }
 
     /**
+     * Gets the available resources for the provided namespace
+     * @param string $namespace Namespace of the template
+     * @param string $theme Machine name of the theme
+     * @param string $engine Machine name of the engine
+     * @return array
+     */
+    public function getFiles($namespace, $theme = null, $engine = null) {
+        if (!$engine) {
+            $engine = $this->defaultEngine;
+        }
+
+        if (!$theme) {
+            $theme = $this->defaultTheme;
+        }
+
+        $engine = $this->getEngine($engine);
+
+        return $engine->getFiles($namespace, $theme);
+    }
+
+    /**
      * Gets the engine for the provided template
      * @param \ride\library\template\Template $template
      * @throws ResourceNotSetException
@@ -216,7 +237,13 @@ class TemplateFacade {
         }
 
         if (!$engine) {
-            throw new TemplateException('Could not determine template engine: no default engine set');
+            $engines = $this->engineModel->getEngines();
+            if (!$engines) {
+                throw new TemplateException('Could not determine template engine: no engines set');
+            }
+
+            $engine = reset($engines);
+            $engine = $engine->getName();
         }
 
         return $this->engineModel->getEngine($engine);
