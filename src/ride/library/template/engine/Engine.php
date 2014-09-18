@@ -67,4 +67,13 @@ interface Engine {
      */
     public function getFile(Template $template);
 
+    /**
+     * Gets the available template resources
+     * @param string $namespace
+     * @param string $theme
+     * @return array Array with the relative path of the resource as key and the
+     * name relative to the namespace as value
+     */
+    public function getFiles($namespace, $theme = null);
+
 }
