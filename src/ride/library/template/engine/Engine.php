@@ -23,6 +23,13 @@ interface Engine {
     public function getExtension();
 
     /**
+     * Gets the block comment delimiters
+     * @return array Array with the open tag as first element and the close tag
+     * as second element
+     */
+    public function getBlockComment();
+
+    /**
      * Sets the theme model to this template engine
      * @param \ride\library\template\theme\ThemeModel
      * @return null
@@ -59,7 +66,8 @@ interface Engine {
      * Gets the template resource
      * @param \ride\library\template\Template $template Template to get the
      * resource of
-     * @return string Absolute path of the template resource
+     * @return \ride\library\system\file\File $file File instance for the
+     * template resource
      * @throws \ride\library\template\exception\ResourceNotSetException when
      * no template was set to the template
      * @throws \ride\library\template\exception\ResourceNotFoundException when
