@@ -144,7 +144,8 @@ class TemplateFacade {
      * Gets the resource for the provided template instance
      * @param \ride\library\template\Template $template Template to get the
      * resource of
-     * @return string Absolute path of the template file
+     * @return \ride\library\system\file\File $file File instance for the
+     * template resource
      * @throws \ride\library\template\exception\ResourceNotFoundException
      */
     public function getFile(Template $template) {
@@ -154,11 +155,13 @@ class TemplateFacade {
     /**
      * Gets the available resources for the provided namespace
      * @param string $namespace Namespace of the template
-     * @param string $theme Machine name of the theme
-     * @param string $engine Machine name of the engine
+     * @param string $theme Machine name of the theme, instance will be set
+     * after the call
+     * @param string $engine Machine name of the engine, instance will be set
+     * after the call
      * @return array
      */
-    public function getFiles($namespace, $theme = null, $engine = null) {
+    public function getFiles($namespace, &$theme = null, &$engine = null) {
         if (!$engine) {
             $engine = $this->defaultEngine;
         }
@@ -170,6 +173,61 @@ class TemplateFacade {
         $engine = $this->getEngine($engine);
 
         return $engine->getFiles($namespace, $theme);
+    }
+
+    /**
+     * Gets the meta from the template file.
+     * The meta of a template file is defined in the first line of the template.
+     * It should be a block comment line with semicolon seperated properties.
+     * Property values are delimited from their keys with a colon.
+     * eg {* name: Test; widget: my-widget; *}
+     * @return array Array with the name of the property as key and the value of
+     * the property as value
+     */
+    public function getTemplateMeta(Template $template) {
+        $meta = array();
+
+        $engine = $this->getTemplateEngine($template);
+        $file = $engine->getFile($template);
+
+        $contents = $file->read();
+        if (!$contents) {
+            return $meta;
+        }
+
+        $lines = explode("\n", $contents);
+        $line = array_shift($lines);
+        $line = trim($line);
+        $lineLength = strlen($line);
+
+        $blockComment = $engine->getBlockComment();
+        $blockCommentOpen = $blockComment[0];
+        $blockCommentOpenLength = strlen($blockCommentOpen);
+        $blockCommentClose = $blockComment[1];
+        $blockCommentCloseLength = strlen($blockCommentClose);
+
+        if (strpos($line, $blockCommentOpen) !== 0 || strpos($line, $blockCommentClose) !== $lineLength - $blockCommentCloseLength) {
+            return $meta;
+        }
+
+        $line = substr($line, $blockCommentOpenLength, $lineLength - $blockCommentOpenLength - $blockCommentCloseLength);
+        $line = trim($line);
+
+        $tokens = explode(';', $line);
+        foreach ($tokens as $token) {
+            $token = trim($token);
+            if (!$token || strpos($token, ':') === false) {
+                continue;
+            }
+
+            list($key, $value) = explode(':', $token, 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            $meta[$key] = $value;
+        }
+
+        return $meta;
     }
 
     /**

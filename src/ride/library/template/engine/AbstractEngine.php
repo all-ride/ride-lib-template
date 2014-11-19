@@ -37,6 +37,15 @@ abstract class AbstractEngine implements Engine {
     }
 
     /**
+     * Gets the block comment delimiters
+     * @return array Array with the open tag as first element and the close tag
+     * as second element
+     */
+    public function getBlockComment() {
+        return array(static::COMMENT_OPEN, static::COMMENT_CLOSE);
+    }
+
+    /**
      * Sets the model of themes
      * @param \ride\library\template\theme\ThemeModel $themeModel
      * @return null
