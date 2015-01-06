@@ -97,12 +97,28 @@ class TemplateFacade {
     }
 
     /**
+     * Gets the default template engine
+     * @return string Machine name of the template engine
+     */
+    public function getDefaultEngine() {
+        return $this->defaultEngine;
+    }
+
+    /**
      * Sets the default theme
      * @param string $theme Machine name of the theme
      * @return null
      */
     public function setDefaultTheme($theme) {
         $this->defaultTheme = $theme;
+    }
+
+    /**
+     * Gets the default theme
+     * @return string Machine name of the theme
+     */
+    public function getDefaultTheme() {
+        return $this->defaultTheme;
     }
 
     /**
