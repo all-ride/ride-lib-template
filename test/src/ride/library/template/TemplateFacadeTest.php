@@ -70,7 +70,7 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $template = new GenericTemplate();
         $template->setResource($resource);
-        $template->setEngine($engine);
+        $template->setEngine($engineName);
         $template->set($variables);
 
         $engine->expects($this->once())
@@ -134,7 +134,7 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $template = new GenericThemedTemplate();
         $template->setResource($resource);
-        $template->setEngine($engine);
+        $template->setEngine($engineName);
         $template->set($variables);
 
         $engine->expects($this->once())
@@ -189,7 +189,7 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $template = new GenericTemplate();
         $template->setResource($resource);
-        $template->setEngine($engine);
+        $template->setEngine($engineName);
         $template->set($variables);
 
         $engine->expects($this->once())
@@ -257,7 +257,7 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $template = new GenericThemedTemplate();
         $template->setResource($resource);
-        $template->setEngine($engine);
+        $template->setEngine($engineName);
         $template->set($variables);
 
         $engine->expects($this->once())
@@ -336,6 +336,94 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $templateFacade = new TemplateFacade($engineModel, $themeModel);
         $templateFacade->createTemplate($resource, $variables);
+    }
+
+    /**
+     * @dataProvider providerGetTemplateMeta
+     */
+    public function testGetTemplateMeta($expected, $content) {
+        $resource = 'resource';
+        $variables = array('var' => 'value');
+
+        $engines = array();
+        $engineName = 'engine';
+
+        $themes = array();
+        $themeName = 'theme';
+
+        $blockComment = array('{*', '*}');
+
+        $template = new GenericTemplate();
+        $template->setResource($resource);
+        $template->setEngine($engineName);
+        $template->set($variables);
+
+        $fs = $this->getMock('ride\\library\\system\\file\\FileSystem');
+
+        $file = $this->getMockBuilder('ride\\library\\system\\file\\File')
+                     ->setConstructorArgs(array($fs, '/path/to/file'))
+                     ->getMock();
+        $file->expects($this->once())
+             ->method('read')
+             ->will($this->returnValue($content));
+
+        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+
+        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine->expects($this->any())
+               ->method('getBlockComment')
+               ->will($this->returnValue($blockComment));
+        $engine->expects($this->once())
+               ->method('getFile')
+               ->with($this->equalTo($template))
+               ->will($this->returnValue($file));
+
+        $engines[] = $engine;
+
+        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel->expects($this->any())
+                    ->method('getEngines')
+                    ->will($this->returnValue($engines));
+        $engineModel->expects($this->any())
+                    ->method('getEngine')
+                    ->with($this->equalTo($engineName))
+                    ->will($this->returnValue($engine));
+
+        $engine->expects($this->once())
+               ->method('createTemplate')
+               ->with($this->equalTo($resource), $this->equalTo($variables))
+               ->will($this->returnValue($template));
+
+        $templateFacade = new TemplateFacade($engineModel, $themeModel);
+        $template = $templateFacade->createTemplate($resource, $variables, null, $engineName);
+        $meta = $templateFacade->getTemplateMeta($template);
+
+        $this->assertEquals($expected, $meta);
+    }
+
+    public function providerGetTemplateMeta() {
+        return array(
+            array(
+array(
+    'name' => 'My template',
+    'action' => 'index',
+),
+'{* name: My template; action: index *}
+<h1>{$title}</h1>
+<p>{$description}</p>',
+            ),
+            array(
+array(
+),
+'<h1>{$title}</h1>
+<p>{$description}</p>',
+            ),
+            array(
+array(
+),
+'',
+            ),
+        );
     }
 
 }
