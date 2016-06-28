@@ -178,12 +178,31 @@ class TemplateFacade {
      * @return array
      */
     public function getFiles($namespace, &$theme = null, &$engine = null) {
-        if (!$engine) {
-            $engine = $this->defaultEngine;
-        }
-
         if (!$theme) {
             $theme = $this->defaultTheme;
+        }
+
+        if (!$engine) {
+            // no engine requested, detect through theme
+            $themeInstance = $this->themeModel->getTheme($theme);
+            $engines = $themeInstance->getEngines();
+
+            if (is_array($engines)) {
+                // array engines from theme
+                if (in_array($this->defaultEngine, $engines) || !$engines) {
+                    // default engine available, use it
+                    $engine = $defaultEngine;
+                } else {
+                    // use the first defined engine
+                    $engine = reset($engines);
+                }
+            } elseif (!$engines) {
+                // no engines from theme, use default engine
+                $engine = $this->defaultEngine;
+            } else {
+                // string engine from theme
+                $engine = $engines;
+            }
         }
 
         $engine = $this->getEngine($engine);
@@ -204,7 +223,11 @@ class TemplateFacade {
         $meta = array();
 
         $engine = $this->getTemplateEngine($template);
+
         $file = $engine->getFile($template);
+        if (!$file) {
+            return $meta;
+        }
 
         $contents = $file->read();
         if (!$contents) {
