@@ -2,16 +2,18 @@
 
 Template abstraction library of the PHP Ride framework.
 
-## Engine
+## What's In The Library
+
+### Engine
 
 The implementation of _Engine_ will implement the actual template engine through the _Template_ interface.
 A template engine decides the features and the syntax (or language) to write in.
 
-## EngineModel
+### EngineModel
 
 An _EngineModel_ is an interface for the data store of the available template engines.
 
-## Theme
+### Theme
 
 Optional support for template themes through the _Theme_ interface.
 Each theme can implement it's own version of a template.
@@ -22,11 +24,11 @@ A theme chooses the engines it's available in.
 You can make a theme hierarchical by defining it's parent.
 This makes it easy to create subthemes and helps the engine to fallback when a resource could not be found.
 
-## ThemeModel
+### ThemeModel
 
 A _ThemeModel_ is an interface for the data store of the available themes.
 
-## Template
+### Template
 
 A _Template_ instance defines the resource and the variables to render the template.
 With a _ThemedTemplate_, you can specify a template in a specific theme.
@@ -84,4 +86,20 @@ function foo(EngineModel $engineModel, ThemeModel $themeModel) {
 }
 ```
 
-For more concrete implementations, check the ride-lib-template* and ride-app-template* modules.
+### Implementations
+
+For more examples, you can check the following implementations of this library:
+- [ride/lib-template-php](https://github.com/all-ride/ride-lib-template-php)
+- [ride/lib-template-smarty](https://github.com/all-ride/ride-lib-template-smarty)
+- [ride/lib-template-twig](https://github.com/all-ride/ride-lib-template-twig)
+- [ride/app-template-php](https://github.com/all-ride/ride-app-template-php)
+- [ride/app-template-smarty](https://github.com/all-ride/ride-app-template-smarty)
+- [ride/app-template-twig](https://github.com/all-ride/ride-app-template-twig)
+
+## Installation
+
+You can use [Composer](http://getcomposer.org) to install this library.
+
+```
+composer require ride/lib-template
+```
