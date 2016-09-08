@@ -7,12 +7,15 @@ use \PHPUnit_Framework_TestCase;
 class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
     public function testConstruct() {
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->once())
                     ->method('getEngines')
                     ->will($this->returnValue(array()));
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel');
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->getMock();
 
         $templateFacade = new TemplateFacade($engineModel, $themeModel);
 
@@ -23,9 +26,12 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testSetThemeModelSetsThemeModelToEngines() {
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel');
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->getMock();
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -33,7 +39,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines = array($engine);
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->once())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -46,9 +54,13 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $variables = array('var' => 'value');
         $engineName = 'engine';
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -59,7 +71,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines = array($engine);
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->any())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -95,7 +109,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $themes = array();
         $themeName = 'theme';
 
-        $theme = $this->getMock('ride\\library\\template\\theme\\Theme', array('getName', 'getDisplayName', 'getParent', 'getEngines'));
+        $theme = $this->getMockBuilder('ride\\library\\template\\theme\\Theme')
+                      ->setMethods(array('getName', 'getDisplayName', 'getParent', 'getEngines'))
+                      ->getMock();
         $theme->expects($this->once())
               ->method('getName')
               ->will($this->returnValue($themeName));
@@ -105,17 +121,23 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $themes[] = $theme;
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
         $themeModel->expects($this->once())
                    ->method('getTheme')
                    ->with($this->equalTo($themeName))
                    ->will($this->returnValue($theme));
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
 
         $engines[] = $engine;
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -123,7 +145,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines[] = $engine;
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->any())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -160,17 +184,25 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $themes = array();
         $themeName = 'theme';
 
-        $theme = $this->getMock('ride\\library\\template\\theme\\Theme', array('getName', 'getDisplayName', 'getParent', 'getEngines'));
+        $theme = $this->getMockBuilder('ride\\library\\template\\theme\\Theme')
+                      ->setMethods(array('getName', 'getDisplayName', 'getParent', 'getEngines'))
+                      ->getMock();
 
         $themes[] = $theme;
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
 
         $engines[] = $engine;
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -178,7 +210,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines[] = $engine;
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->once())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -214,11 +248,15 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $themes = array();
         $themeName = 'theme';
 
-        $theme = $this->getMock('ride\\library\\template\\theme\\Theme', array('getName', 'getDisplayName', 'getParent', 'getEngines'));
+        $theme = $this->getMockBuilder('ride\\library\\template\\theme\\Theme')
+                      ->setMethods(array('getName', 'getDisplayName', 'getParent', 'getEngines'))
+                      ->getMock();
 
         $themes[] = $theme;
 
-        $theme = $this->getMock('ride\\library\\template\\theme\\Theme', array('getName', 'getDisplayName', 'getParent', 'getEngines'));
+        $theme = $this->getMockBuilder('ride\\library\\template\\theme\\Theme')
+                      ->setMethods(array('getName', 'getDisplayName', 'getParent', 'getEngines'))
+                      ->getMock();
         $theme->expects($this->once())
               ->method('getName')
               ->will($this->returnValue($themeName));
@@ -228,17 +266,23 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $themes[] = $theme;
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
         $themeModel->expects($this->once())
                    ->method('getTheme')
                    ->with($this->equalTo($themeName))
                    ->will($this->returnValue($theme));
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
 
         $engines[] = $engine;
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -246,7 +290,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines[] = $engine;
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->once())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -286,24 +332,32 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $themes = array();
         $themeName = 'theme';
 
-        $theme = $this->getMock('ride\\library\\template\\theme\\Theme', array('getName', 'getDisplayName', 'getParent', 'getEngines'));
+        $theme = $this->getMockBuilder('ride\\library\\template\\theme\\Theme')
+                      ->setMethods(array('getName', 'getDisplayName', 'getParent', 'getEngines'))
+                      ->getMock();
         $theme->expects($this->once())
               ->method('getEngines')
               ->will($this->returnValue(array($engineName)));
 
         $themes[] = $theme;
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
         $themeModel->expects($this->once())
                    ->method('getTheme')
                    ->with($this->equalTo($themeName))
                    ->will($this->returnValue($theme));
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
 
         $engines[] = $engine;
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->once())
                ->method('setThemeModel')
                ->with($this->equalTo($themeModel))
@@ -311,7 +365,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines[] = $engine;
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->once())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
@@ -327,9 +383,13 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $resource = 'resource';
         $variables = array('var' => 'value');
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->any())
                     ->method('getEngines')
                     ->will($this->returnValue(array()));
@@ -358,7 +418,8 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
         $template->setEngine($engineName);
         $template->set($variables);
 
-        $fs = $this->getMock('ride\\library\\system\\file\\FileSystem');
+        $fs = $this->getMockBuilder('ride\\library\\system\\file\\FileSystem')
+                   ->getMock();
 
         $file = $this->getMockBuilder('ride\\library\\system\\file\\File')
                      ->setConstructorArgs(array($fs, '/path/to/file'))
@@ -367,9 +428,13 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
              ->method('read')
              ->will($this->returnValue($content));
 
-        $themeModel = $this->getMock('ride\\library\\template\\theme\\ThemeModel', array('getThemes', 'getTheme'));
+        $themeModel = $this->getMockBuilder('ride\\library\\template\\theme\\ThemeModel')
+                           ->setMethods(array('getThemes', 'getTheme'))
+                           ->getMock();
 
-        $engine = $this->getMock('ride\\library\\template\\engine\\Engine', array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'));
+        $engine = $this->getMockBuilder('ride\\library\\template\\engine\\Engine')
+                       ->setMethods(array('getName', 'getExtension', 'getBlockComment', 'setThemeModel', 'getThemes', 'createTemplate', 'render', 'getFile', 'getFiles'))
+                       ->getMock();
         $engine->expects($this->any())
                ->method('getBlockComment')
                ->will($this->returnValue($blockComment));
@@ -380,7 +445,9 @@ class TemplateFacadeTest extends PHPUnit_Framework_TestCase {
 
         $engines[] = $engine;
 
-        $engineModel = $this->getMock('ride\\library\\template\\engine\\EngineModel', array('getEngines', 'getEngine'));
+        $engineModel = $this->getMockBuilder('ride\\library\\template\\engine\\EngineModel')
+                            ->setMethods(array('getEngines', 'getEngine'))
+                            ->getMock();
         $engineModel->expects($this->any())
                     ->method('getEngines')
                     ->will($this->returnValue($engines));
