@@ -191,7 +191,7 @@ class TemplateFacade {
                 // array engines from theme
                 if (in_array($this->defaultEngine, $engines) || !$engines) {
                     // default engine available, use it
-                    $engine = $defaultEngine;
+                    $engine = $this->defaultEngine;
                 } else {
                     // use the first defined engine
                     $engine = reset($engines);
